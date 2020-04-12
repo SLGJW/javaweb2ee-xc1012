@@ -1,0 +1,74 @@
+package test;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+
+@WebServlet("/LoginServlet0202")
+public class LoginServlet0202 extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public LoginServlet0202() {
+        super();
+        
+    }
+
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		
+		response.setContentType("text/html;utf-8");
+		response.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");
+		HttpSession session = request.getSession(true);
+		String tel = (String) session.getAttribute("tel");
+		String name = (String) session.getAttribute("name");
+		String bir = (String) session.getAttribute("bir");
+		
+		PrintWriter out = response.getWriter();
+
+		out.println("<html>");
+
+		out.println("<head><title>个人信息</title></head>");
+		
+		out.println("<body>");
+		out.println("学号:" + tel + "</br>");
+		out.println("生日:" + bir + "</br>");
+		out.println("姓名:" + name + "</br>");
+		/*String[] sex = request.getParameterValues("sex");
+		for (String string1 : sex) {
+
+			out.println("性别:" +string1+ "</br>");
+		}
+
+		String[] active = request.getParameterValues("active");
+
+		out.println("爱好:" +"</br>");
+		for (String string : active) {
+			out.println( string);
+
+		}*/
+
+		out.println("</body>");
+		out.println("</html>");
+		
+		
+		
+		
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		doGet(request, response);
+	}
+
+}
