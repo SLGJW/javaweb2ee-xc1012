@@ -8,6 +8,25 @@
 <html>
 <head>
     <title>数据库的增删改查</title>
+    <style>
+        div{
+            width: 500px;
+            background-color: gold;
+            margin:0  auto;
+        }
+        a:link{
+            color: blue;
+        }
+        a:hover{
+            color: red;
+        }
+        a:active{
+            color: purple;
+        }
+        a:visited{
+            color: green;
+        }
+    </style>
 </head>
 <script>
     onload = function () {
@@ -60,6 +79,7 @@
     if (name != null) {%>
     
 <body>
+<div style="text-align: center">
 <h1>学生列表</h1>
 <a href="/stu57/create.html">增添学生</a>&nbsp;&nbsp;
 <a href="/stu57/retrieve.html">查找学生</a><br>
@@ -72,7 +92,7 @@
     result = qr.query(sql, new ArrayListHandler());
     if (result != null) {
         int i = 0;%>
-<table width="400px" cellspacing="0px" border="1px">
+<table align="center" width="400px" cellspacing="0px" border="1px" bgcolor="aqua">
     <tr>
         <td>学号</td>
         <td>姓名</td>
@@ -110,6 +130,7 @@
 <%}%>
 
 <h3>点击此处<a href="/stu57/logoutServlet">【注销管理员登录】</a></h3>
+</div>
 </body>
 <%} else { %>
 <%

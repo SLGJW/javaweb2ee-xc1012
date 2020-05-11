@@ -8,7 +8,7 @@
     <% if(request.getAttribute("retrieve")!=null){
         List<Object[]> result = (List<Object[]>)request.getAttribute("retrieve");
         if(result!=null){%>
-            <table width="400px" cellspacing="0px" border="1px">
+            <table width="400px" cellspacing="0px" border="1px" align="center" bgcolor="aqua">
                 <tr>
                     <td>学号</td>
                     <td>姓名</td>
@@ -26,6 +26,6 @@
         <%}
         request.removeAttribute("retrieve");
     }%>
-    <a href="/stu57/CRUD.jsp">返回</a>
+    <a href="/stu57/CRUD.jsp" style="font-size: 30px" style="text-align: center">返回</a>
 </body>
 </html>
