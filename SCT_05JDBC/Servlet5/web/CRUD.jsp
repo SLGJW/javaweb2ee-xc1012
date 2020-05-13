@@ -3,7 +3,8 @@
 <%@ page import="org.apache.commons.dbutils.QueryRunner" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.apache.commons.dbutils.handlers.ArrayListHandler" %>
-<%@ page import="java.sql.SQLException" %>
+<%@ page import="org.apache.commons.dbutils.handlers.ArrayHandler" %>
+<%@ page import="java.util.Date" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -61,17 +62,27 @@
 }%>
     }
 
-    function deletes(id) {
-        var flag = confirm("是否删除?");
-        if (flag) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    function updates(id) {
-        return true;
+    function deletes() {
+        <%
+            request.setCharacterEncoding("utf-8");
+            String sid = request.getParameter("sid");
+            DataSource ds = new ComboPooledDataSource();
+            QueryRunner qr = new QueryRunner(ds);
+            Object[] results = null;
+            String sql = "select * from students where sid=?";
+            results = qr.query(sql, new ArrayHandler(),sid);
+            if(results!=null){
+                String sidvalue = (String)results[0];
+                String snamevalue = (String)results[1];
+                Date sbirthdayvalue = (Date)results[2];
+                String ssexvalue = (String)results[3];
+            %>
+            var flag = confirm("是否删除学号为：<%=sidvalue%>，姓名为：<%=snamevalue%>，出生日期为：<%=sbirthdayvalue%>，性别为：<%=ssexvalue%>的学生信息?");
+            if (flag==true) {
+                var form = document.getElementById("testdelete");
+                form.submit();
+            }
+            <%}%>
     }
 
 </script>
@@ -85,10 +96,10 @@
 <a href="/stu57/retrieve.html">查找学生</a><br>
 <%
     request.setCharacterEncoding("utf-8");
-    DataSource ds = new ComboPooledDataSource();
-    QueryRunner qr = new QueryRunner(ds);
+    ds = new ComboPooledDataSource();
+    qr = new QueryRunner(ds);
     List<Object[]> result = null;
-    String sql = "select * from students";
+    sql = "select * from students";
     result = qr.query(sql, new ArrayListHandler());
     if (result != null) {
         int i = 0;%>
@@ -110,13 +121,13 @@
         </td>
         <%}%>
         <td>
-            <form action="/stu57/DeleteServlet" method="get" onsubmit="return deletes(this.id)">
+            <form id="testdelete" action="/stu57/DeleteServlet" method="get">
                 <input type="hidden" id="d" value="<%=obj[0]%>" name="sid">
-                <input type="submit" value="删除">
+                <input type="button" onclick="deletes()" value="删除">
             </form>
         </td>
         <td>
-            <form action="/stu57/update.jsp" method="get" onsubmit="return updates(this.id)">
+            <form action="/stu57/update.jsp" method="get">
                 <input type="hidden" id="u" value="<%=obj[0]%>" name="sid">
                 <input type="submit" value="修改">
             </form>

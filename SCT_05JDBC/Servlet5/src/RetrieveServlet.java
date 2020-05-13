@@ -1,7 +1,6 @@
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.handlers.ArrayListHandler;
-import org.apache.commons.dbutils.handlers.MapListHandler;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
